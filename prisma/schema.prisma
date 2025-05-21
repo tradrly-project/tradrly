@@ -1,0 +1,142 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  trades         Trade[]
+  tags           Tag[]
+  journalEntries JournalEntry[]
+  subscriptions  Subscription[]
+  payments       Payment[]
+}
+
+model SubscriptionPlan {
+  id        String           @id @default(uuid())
+  name      String
+  price     Decimal
+  tier      SubscriptionTier
+  features  Json?
+  createdAt DateTime         @default(now())
+
+  subscriptions Subscription[]
+}
+
+model Subscription {
+  id        String             @id @default(uuid())
+  user      User               @relation(fields: [userId], references: [id])
+  userId    String
+  plan      SubscriptionPlan   @relation(fields: [planId], references: [id])
+  planId    String
+  status    SubscriptionStatus
+  startedAt DateTime
+  endsAt    DateTime
+  paymentId String?
+
+  @@index([userId])
+}
+
+model Trade {
+  id            String         @id @default(uuid())
+  user          User           @relation(fields: [userId], references: [id])
+  userId        String
+  pair          String
+  entryPrice    Decimal
+  exitPrice     Decimal
+  lotSize       Decimal
+  direction     TradeDirection
+  result        Decimal
+  setupNote     String?
+  screenshotUrl String?
+  openedAt      DateTime
+  closedAt      DateTime
+
+  tags TradeTag[]
+
+  @@index([userId])
+}
+
+model Tag {
+  id     String @id @default(uuid())
+  name   String
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  trades TradeTag[]
+
+  @@index([userId])
+}
+
+model TradeTag {
+  id      String @id @default(uuid())
+  trade   Trade  @relation(fields: [tradeId], references: [id])
+  tradeId String
+  tag     Tag    @relation(fields: [tagId], references: [id])
+  tagId   String
+
+  @@unique([tradeId, tagId])
+}
+
+model JournalEntry {
+  id        String   @id @default(uuid())
+  title     String
+  content   String
+  createdAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+}
+
+model Payment {
+  id            String        @id @default(uuid())
+  user          User          @relation(fields: [userId], references: [id])
+  userId        String
+  amount        Decimal
+  status        PaymentStatus
+  paymentMethod String
+  externalRef   String?
+  createdAt     DateTime      @default(now())
+
+  @@index([userId])
+}
+
+enum SubscriptionStatus {
+  active
+  cancelled
+  expired
+}
+
+enum PaymentStatus {
+  pending
+  paid
+  failed
+}
+
+enum TradeDirection {
+  buy
+  sell
+}
+
+enum SubscriptionTier {
+  trial
+  basic
+  pro
+  elite
+}
