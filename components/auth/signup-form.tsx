@@ -4,8 +4,9 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { IconBrandGoogle } from "@tabler/icons-react";
-import { GlowingBorder } from "./cards/glowing-border";
-import { MainButton } from "./button/main-button";
+import { GlowingBorder } from "@/components/cards/glowing-border";
+import { MainButton } from "@/components/button/main-button";
+import Link from "next/link";
 
 export default function SignupForm() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -20,20 +21,20 @@ export default function SignupForm() {
 
       {/* Inner form */}
       <div className="relative z-10 rounded-2xl bg-black p-4 md:p-8 shadow-input">
-        <h2 className="text-4xl font-bold text-white dark:text-neutral-200">Tradrly</h2>
-        <p className="mt-2 max-w-sm text-md text-white dark:text-neutral-300">
+        <h2 className="text-5xl font-bold text-white dark:text-neutral-200">Tradrly</h2>
+        <p className="mt-5 max-w-sm text-sm text-white dark:text-neutral-300">
           Buat akun Anda untuk memulai pengalaman Anda dengan Tradrly!
         </p>
 
         <form className="my-8" onSubmit={handleSubmit}>
           <div className="mb-4 flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-2">
             <LabelInputContainer>
-              <Label htmlFor="firstname">Nama</Label>
-              <Input id="firstname" placeholder="Nama Kamu" type="text" />
+              <Label htmlFor="name">Nama</Label>
+              <Input id="name" placeholder="Nama Kamu" type="text" />
             </LabelInputContainer>
             <LabelInputContainer>
-              <Label htmlFor="lastname">Username</Label>
-              <Input id="lastname" placeholder="user_123" type="text" />
+              <Label htmlFor="username">Username</Label>
+              <Input id="username" placeholder="user_123" type="text" />
             </LabelInputContainer>
           </div>
 
@@ -48,13 +49,20 @@ export default function SignupForm() {
           </LabelInputContainer>
 
           <LabelInputContainer className="mb-8">
-            <Label htmlFor="twitterpassword">Konfirmasi Password</Label>
-            <Input id="twitterpassword" placeholder="••••••••" type="password" />
+            <Label htmlFor="confirmpassword">Konfirmasi Password</Label>
+            <Input id="confirmpassword" placeholder="••••••••" type="password" />
           </LabelInputContainer>
 
           <MainButton type="submit" className="w-full flex flex-1 items-center justify-center">
             <span className="text-md">Daftar</span>
           </MainButton>
+
+          <div className="my-4 flex items-end w-full text-sm text-zinc-200 ">
+            Sudah punya akun ?
+            <Link href="/signin" className="ml-2">
+              <span className="text-sm text-sky-400"> Masuk</span>
+            </Link>
+          </div>
 
           <div className="my-8 flex items-center w-full">
             <div className="flex-grow h-px bg-gradient-to-r from-transparent via-zinc-400 to-transparent dark:via-neutral-700" />
