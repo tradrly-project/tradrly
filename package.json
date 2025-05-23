@@ -6,12 +6,16 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.9.1",
     "@heroicons/react": "^2.2.0",
     "@prisma/client": "^6.8.2",
+    "@radix-ui/react-label": "^2.1.7",
+    "@radix-ui/react-navigation-menu": "^1.2.13",
+    "@tabler/icons-react": "^3.33.0",
     "bcrypt-ts": "^7.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
