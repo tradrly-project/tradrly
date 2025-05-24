@@ -49,7 +49,9 @@ const Topbar = () => {
             {/* Tombol Masuk di kanan */}
             <div className=" flex justify-end">
                 <MainButton className="w-full px-7">
-                    <span className="text-md font-bold">Masuk</span>
+                    <Link href={"/login"}>
+                  <span className="text-md font-bold">Masuk</span>  
+                    </Link>
                 </MainButton>
             </div>
         </nav>

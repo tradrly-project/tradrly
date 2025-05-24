@@ -41,13 +41,13 @@ export default function SigninForm() {
                     </LabelInputContainer>
 
                     <MainButton type="submit" className="w-full flex flex-1 items-center justify-center">
-                        <span className="text-md">Daftar</span>
+                        <span className="text-md">Masuk</span>
                     </MainButton>
 
                     <div className="my-8 flex items-end w-full text-sm text-zinc-200 ">
                         Belum terdaftar ?
-                        <Link href="/signup" className="ml-2">
-                            <span className="text-sm text-sky-400">SignUp</span>
+                        <Link href="/register" className="ml-2">
+                            <span className="text-sm text-sky-400">Register</span>
                         </Link>
                     </div>
                 </form>

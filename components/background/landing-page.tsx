@@ -29,7 +29,7 @@ export function BackgroundLanding() {
                 </p>
 
                 {/* CTA Button */}
-                <Link href="/signup" className="mt-8 relative z-10">
+                <Link href="/register" className="mt-8 relative z-10">
                     <button
                         onMouseEnter={() => setIsHovered(true)}
                         onMouseLeave={() => setIsHovered(false)}
